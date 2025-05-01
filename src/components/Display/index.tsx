@@ -12,16 +12,16 @@ export const Display: React.FC<Props> = ({currentInput, currentCalculation}) => 
           currentCalculation && (<div className="result">= {currentCalculation}</div>)
         }
       </div>
-      <ul className="history">
-        <li>
-          <div className="expression">1+24</div>
-          <div className="result">= 25</div>
-        </li>
-        <li>
-          <div className="expression">1+2</div>
-          <div className="result">= 3</div>
-        </li>
-      </ul>
+      {/*<ul className="history">*/}
+      {/*  <li>*/}
+      {/*    <div className="expression">1+24</div>*/}
+      {/*    <div className="result">= 25</div>*/}
+      {/*  </li>*/}
+      {/*  <li>*/}
+      {/*    <div className="expression">1+2</div>*/}
+      {/*    <div className="result">= 3</div>*/}
+      {/*  </li>*/}
+      {/*</ul>*/}
     </section>
   )
 }
