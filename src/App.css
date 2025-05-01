@@ -1,0 +1,63 @@
+:root{
+  --screen-width: 428px;
+  --screen-height: 926px;
+  --frame-width: 12px;
+  --tail-width: 100px;
+  --tail-heigth: 24px;
+}
+.App{
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.IPhone-case{
+  width: calc(var(--screen-width) + var(--frame-width) *2);
+  height: calc(var(--screen-height) + var(--frame-width) *2);
+  background-color: #000;
+  border-radius: 56px;
+  position: relative;
+  .IPhone-stuff{
+    .IPhone-tail{
+      width: var(--tail-width);
+      height: var(--tail-heigth);
+      position: absolute;
+      z-index: 2;
+      top: calc(var(--frame-width) + 12px);
+      left: calc(var(--frame-width) + var(--screen-width)/2 - var(--tail-width)/2);
+      background-color: #000;
+      border-radius: 12px;
+    }
+    .IPhone-buttons{
+      .IPhone-button{
+        position: absolute;
+        z-index: 2;
+        width: 8px;
+        left: -6px;
+        background-color: #000;
+      }
+      .IPhone-button:nth-child(1){
+        height: 32px;
+        top: 90px
+      }
+      .IPhone-button:nth-child(2){
+        height: 40px;
+        top: 136px;
+      }
+      .IPhone-button:nth-child(3){
+        height: 40px;
+        top: 180px
+      }
+    }
+  }
+  .calculator{
+    position: absolute;
+    left: var(--frame-width);
+    top: var(--frame-width);
+    width: var(--screen-width);
+    height: var(--screen-height);
+    background-color: #ccc;
+    border-radius: 50px;
+    z-index: 1;
+  }
+}
+
