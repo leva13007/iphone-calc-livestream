@@ -3,13 +3,21 @@ import {Keyboard} from "./components/Keyboard";
 import {Display} from "./components/Display";
 import {useEffect, useState} from "react";
 
+export type CalculationItem = {
+  expression: string; result: string;
+}
+
+export type CalculationHistory = Array<CalculationItem>;
+
 function App() {
   const [currentInput, setCurrentInput] = useState("");
   const [currentCalculation, setCurrentCalculation] = useState<string | undefined>(undefined);
+  const [history, setHistory] = useState<CalculationHistory>([])
 
   const resetHandler = () => {
     setCurrentInput("");
     setCurrentCalculation(undefined);
+    if(!currentInput) setHistory([]);
   }
 
   const inputHandler = (value: string) => {
@@ -19,7 +27,13 @@ function App() {
   const calculateHandler = () => {
     const res = eval(currentInput);
     console.log(res)
-    setCurrentCalculation(res)
+    setCurrentCalculation(res);
+    setHistory(prevState => [...prevState, {expression: currentInput, result: res}])
+  }
+
+  const setHistoryItemHandler = (item: CalculationItem) => {
+    setCurrentInput(item.expression);
+    setCurrentCalculation(undefined);
   }
 
   useEffect(() => {
@@ -52,7 +66,7 @@ function App() {
           </div>
         </div>
         <div className="calculator">
-          <Display currentInput={currentInput} currentCalculation={currentCalculation} />
+          <Display currentInput={currentInput} currentCalculation={currentCalculation} history={history} setHistoryItem={setHistoryItemHandler} />
           <Keyboard resetHandler={resetHandler} inputHandler={inputHandler} calculateHandler={calculateHandler} />
         </div>
       </div>

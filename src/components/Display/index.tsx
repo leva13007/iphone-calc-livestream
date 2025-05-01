@@ -1,9 +1,12 @@
+import {CalculationHistory, CalculationItem} from "../../App.tsx";
 
 type Props = {
   currentInput: string;
   currentCalculation: string | undefined;
+  history: CalculationHistory;
+  setHistoryItem: (item: CalculationItem) => void;
 }
-export const Display: React.FC<Props> = ({currentInput, currentCalculation}) => {
+export const Display: React.FC<Props> = ({currentInput, currentCalculation, history, setHistoryItem}) => {
   return (
     <section className="display">
       <div className="current">
@@ -12,16 +15,20 @@ export const Display: React.FC<Props> = ({currentInput, currentCalculation}) => 
           currentCalculation && (<div className="result">= {currentCalculation}</div>)
         }
       </div>
-      {/*<ul className="history">*/}
-      {/*  <li>*/}
-      {/*    <div className="expression">1+24</div>*/}
-      {/*    <div className="result">= 25</div>*/}
-      {/*  </li>*/}
-      {/*  <li>*/}
-      {/*    <div className="expression">1+2</div>*/}
-      {/*    <div className="result">= 3</div>*/}
-      {/*  </li>*/}
-      {/*</ul>*/}
+      {
+        history.length > 0 && (
+          <ul className="history">
+            {
+              history.map((item, i) => (
+                <li key={i} onClick={() => setHistoryItem({...item})}>
+                  <div className="expression">{item.expression}</div>
+                  <div className="result">= {item.result}</div>
+                </li>
+              ))
+            }
+          </ul>
+        )
+      }
     </section>
   )
 }
