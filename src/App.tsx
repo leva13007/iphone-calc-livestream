@@ -7,21 +7,33 @@ function App() {
   const [currentInput, setCurrentInput] = useState("");
   const [currentCalculation, setCurrentCalculation] = useState<string | undefined>(undefined);
 
+  const resetHandler = () => {
+    setCurrentInput("");
+    setCurrentCalculation(undefined);
+  }
+
+  const inputHandler = (value: string) => {
+    setCurrentInput(prevState => prevState + value)
+  }
+
+  const calculateHandler = () => {
+    const res = eval(currentInput);
+    console.log(res)
+    setCurrentCalculation(res)
+  }
+
   useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
       console.log(e.key)
       if (e.key === "Enter") {
-        const res = eval(currentInput);
-        console.log(res)
-        setCurrentCalculation(res)
+        calculateHandler();
       } else if (e.key === 'Escape') {
-        setCurrentInput("");
-        setCurrentCalculation(undefined);
+        resetHandler();
       } else if (e.key === 'Backspace') {
         setCurrentInput(prevState => prevState.slice(0, -1));
         setCurrentCalculation(undefined);
-      } else if(/[0-9-+*/]/.test(e.key)) {
-        setCurrentInput(prevState => prevState + e.key)
+      } else if(/[0-9-+*/]/i.test(e.key)) {
+        inputHandler(e.key);
       }
     }
     window.addEventListener('keydown', keyDownHandler);
@@ -41,7 +53,7 @@ function App() {
         </div>
         <div className="calculator">
           <Display currentInput={currentInput} currentCalculation={currentCalculation} />
-          <Keyboard />
+          <Keyboard resetHandler={resetHandler} inputHandler={inputHandler} calculateHandler={calculateHandler} />
         </div>
       </div>
     </main>
