@@ -2,6 +2,7 @@ import './App.css'
 import {Keyboard} from "./components/Keyboard";
 import {Display} from "./components/Display";
 import {useEffect, useState} from "react";
+import {evaluatePostfix} from "./service.ts";
 
 export type CalculationItem = {
   expression: string; result: string;
@@ -25,10 +26,10 @@ function App() {
   }
 
   const calculateHandler = () => {
-    const res = eval(currentInput);
+    const res = evaluatePostfix(currentInput);
     console.log(res)
-    setCurrentCalculation(res);
-    setHistory(prevState => [...prevState, {expression: currentInput, result: res}])
+    setCurrentCalculation(res.toString());
+    setHistory(prevState => [...prevState, {expression: currentInput, result: res.toString()}])
   }
 
   const setHistoryItemHandler = (item: CalculationItem) => {
