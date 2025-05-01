@@ -4,6 +4,8 @@
   --frame-width: 12px;
   --tail-width: 100px;
   --tail-heigth: 24px;
+  --key-size: 92px;
+  --keyboard-margin: 12px;
 }
 .App{
   display: grid;
@@ -49,15 +51,44 @@
       }
     }
   }
-  .calculator{
-    position: absolute;
-    left: var(--frame-width);
-    top: var(--frame-width);
-    width: var(--screen-width);
-    height: var(--screen-height);
-    background-color: #ccc;
-    border-radius: 50px;
-    z-index: 1;
-  }
 }
 
+.calculator{
+  position: absolute;
+  left: var(--frame-width);
+  top: var(--frame-width);
+  width: var(--screen-width);
+  height: var(--screen-height);
+  background-color: #1e1e1e;
+  border-radius: 50px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  .display{
+    flex-grow: 1;
+  }
+  .keyboard{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 0 var(--keyboard-margin) var(--keyboard-margin);
+    .key{
+      width: var(--key-size);
+      height: var(--key-size);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 2.5rem;
+      cursor: pointer;
+
+      &.number{
+        background-color: #333;
+      }
+      &.controls{
+        background-color: #A5A5A5;
+      }
+      &.operations{
+        background-color: #F1A33B;
+      }
+    }
+  }
+}
