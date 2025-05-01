@@ -14,8 +14,23 @@ function App() {
           </div>
         </div>
         <div className="calculator">
-          <div className="display"></div>
-          <div className="keyboard">
+          <section className="display">
+            <div className="current">
+              <div className="expression">12+24</div>
+              <div className="result">= 36</div>
+            </div>
+            <ul className="history">
+              <li>
+                <div className="expression">1+24</div>
+                <div className="result">= 25</div>
+              </li>
+              <li>
+                <div className="expression">1+2</div>
+                <div className="result">= 3</div>
+              </li>
+            </ul>
+          </section>
+          <section className="keyboard">
             <button className="key controls">AC</button>
             <button className="key controls">
               <i className="fa-solid fa-square-root-variable"></i>
@@ -56,7 +71,7 @@ function App() {
             <button className="key operations">
               <i className="fa-solid fa-equals"></i>
             </button>
-          </div>
+          </section>
         </div>
       </div>
     </main>

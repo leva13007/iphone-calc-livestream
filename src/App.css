@@ -66,12 +66,35 @@
   flex-direction: column;
   .display{
     flex-grow: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: end;
+    text-align: end;
+    margin: 16px;
+
+    color: #fff;
+    .current{
+      .expression{
+        font-size: 2.5rem;
+        color: #d3d3d3;
+      }
+      .result{
+        font-size: 4rem;
+      }
+    }
+    .history{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: #696969;
+    }
   }
   .keyboard{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin: 0 var(--keyboard-margin) var(--keyboard-margin);
+    margin: 16px var(--keyboard-margin) var(--keyboard-margin);
     .key{
       width: var(--key-size);
       height: var(--key-size);
