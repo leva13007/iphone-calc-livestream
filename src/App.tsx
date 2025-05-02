@@ -40,6 +40,7 @@ function App() {
   useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
       console.log(e.key)
+      if(e.key === 'Shift' || e.ctrlKey || e.altKey || e.metaKey || e.key === "CapsLock" || e.key === 'Tab') return;
       if (e.key === "Enter") {
         calculateHandler();
       } else if (e.key === 'Escape') {
@@ -47,7 +48,7 @@ function App() {
       } else if (e.key === 'Backspace') {
         setCurrentInput(prevState => prevState.slice(0, -1));
         setCurrentCalculation(undefined);
-      } else if(/[0-9-+*()/^]/i.test(e.key)) {
+      } else if(/[a-z0-9-+*()/^]/i.test(e.key)) {
         inputHandler(e.key);
       }
     }

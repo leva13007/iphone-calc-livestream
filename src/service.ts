@@ -1,37 +1,49 @@
-const operators: Record<string, { priority: number; associativity: 'L'|"R" }> = {
-  "-": { priority: 1, associativity: 'L' },
-  "+": { priority: 1, associativity: 'L' },
-  "*": { priority: 2, associativity: 'L' },
-  "/": { priority: 2, associativity: 'L' },
-  "^": { priority: 3, associativity: 'R' },
+const operators: Record<
+  string,
+  { priority: number; associativity: "L" | "R" }
+> = {
+  "-": { priority: 1, associativity: "L" },
+  "+": { priority: 1, associativity: "L" },
+  "*": { priority: 2, associativity: "L" },
+  "/": { priority: 2, associativity: "L" },
+  "^": { priority: 3, associativity: "R" },
 };
+
+const functions = ["sqrt"];
 
 const toPostfix = (expression: string): string[] => {
   const output: string[] = [];
   const stack: string[] = [];
 
-  const tokens = expression.match(/\d+(\.\d+)?|[-+*/()^]/g);
+  const tokens = expression.match(/\d+(\.\d+)?|[-+*/()^]|\w+/g);
   console.log("tokens", tokens);
   if (!tokens) return [];
 
   for (const token of tokens) {
     if (!isNaN(Number(token))) {
       output.push(token);
+    } else if (functions.includes(token)) {
+      stack.push(token);
     } else if (token === "(") {
       stack.push(token);
     } else if (token === ")") {
       while (stack.length && stack[stack.length - 1] !== "(") {
         output.push(stack.pop()!);
       }
-      stack.pop();
+      stack.pop(); // remove first '('
+      if (stack.length && functions.includes(stack[stack.length - 1])) {
+        output.push(stack.pop()!);
+      }
     } else if (token in operators) {
       while (
         stack.length &&
         stack[stack.length - 1] in operators &&
-        (
-          (operators[token].associativity === 'L' && operators[stack[stack.length - 1]].priority >= operators[token].priority) ||
-          (operators[token].associativity === 'R' && operators[stack[stack.length - 1]].priority > operators[token].priority)
-        )
+        ((operators[token].associativity === "L" &&
+            operators[stack[stack.length - 1]].priority >=
+            operators[token].priority) ||
+          (operators[token].associativity === "R" &&
+            operators[stack[stack.length - 1]].priority >
+            operators[token].priority))
         ) {
         output.push(stack.pop()!);
       }
@@ -56,6 +68,10 @@ const evaluate = (postfix: string[]): number => {
   for (const token of postfix) {
     if (!isNaN(Number(token))) {
       output.push(+token);
+    } else if (token === "sqrt") {
+      const a = output.pop();
+      if (a === undefined ) throw Error("Error 2");
+      output.push(Math.sqrt(a));
     } else if (token in operators) {
       const b = output.pop();
       const a = output.pop();
