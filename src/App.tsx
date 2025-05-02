@@ -47,7 +47,7 @@ function App() {
       } else if (e.key === 'Backspace') {
         setCurrentInput(prevState => prevState.slice(0, -1));
         setCurrentCalculation(undefined);
-      } else if(/[0-9-+*/]/i.test(e.key)) {
+      } else if(/[0-9-+*()/]/i.test(e.key)) {
         inputHandler(e.key);
       }
     }

@@ -9,16 +9,24 @@ const toPostfix = (expression: string): string[] => {
   const output: string[] = [];
   const stack: string[] = [];
 
-  const tokens = expression.match(/\d+(\.\d+)?|[-+*/]/g);
+  const tokens = expression.match(/\d+(\.\d+)?|[-+*/()]/g);
   console.log("tokens", tokens);
   if (!tokens) return [];
 
   for (const token of tokens) {
     if (!isNaN(Number(token))) {
       output.push(token);
+    } else if (token === "(") {
+      stack.push(token);
+    } else if (token === ")") {
+      while (stack.length && stack[stack.length - 1] !== "(") {
+        output.push(stack.pop()!);
+      }
+      stack.pop();
     } else if (token in operators) {
       while (
         stack.length &&
+        stack[stack.length - 1] in operators &&
         operators[stack[stack.length - 1]].priority >= operators[token].priority
         ) {
         output.push(stack.pop()!);
