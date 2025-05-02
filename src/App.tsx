@@ -11,6 +11,7 @@ export type CalculationItem = {
 export type CalculationHistory = Array<CalculationItem>;
 
 function App() {
+  console.log("Iphone calc v0.0.1")
   const [currentInput, setCurrentInput] = useState("");
   const [currentCalculation, setCurrentCalculation] = useState<string | undefined>(undefined);
   const [history, setHistory] = useState<CalculationHistory>([])
