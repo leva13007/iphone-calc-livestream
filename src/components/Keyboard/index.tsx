@@ -10,7 +10,7 @@ export const Keyboard: React.FC<Props> = ({resetHandler, inputHandler, calculate
     <section className="keyboard">
       <Key className="key controls" label="AC" onClickHandler={resetHandler} />
       <Key className="key controls" label={<i className="fa-solid fa-square-root-variable"></i>} onClickHandler={() => {}} />
-      <Key className="key controls" label={<>x<sup>y</sup></>} onClickHandler={() => {}} />
+      <Key className="key controls" label={<>x<sup>y</sup></>} onClickHandler={() => inputHandler("^")} />
       <Key className="key operations" label={<i className="fa-solid fa-divide"></i>} onClickHandler={() => inputHandler("/")} />
 
       <Key className="key number" label={7} onClickHandler={() => inputHandler("7")} />
